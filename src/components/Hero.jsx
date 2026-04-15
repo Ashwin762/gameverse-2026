@@ -3,6 +3,10 @@ import gta6 from '../assets/images/gta6.jpg.jpg'
 import spiderman from '../assets/images/spiderman.jpg.jpg'
 import rdr from '../assets/images/rdr.jpg.jpg'
 import witcher from '../assets/images/witcher.jpg.jpg'
+import pubg from '../assets/images/pubg.jpg.jpg'
+import eldenring from '../assets/images/eldenring.jpg.jpg'
+import batman from '../assets/images/batman.jpg.jpg'
+import cod from '../assets/images/cod.jpg.jpg'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
 import { useNavigate } from 'react-router-dom'
@@ -13,6 +17,10 @@ const GAMES = [
   { name: 'GTA VI', color: '#0a001a', accent: '#ff00ff', bg: gta6 },
   { name: 'SPIDER-MAN', color: '#00001a', accent: '#00f5ff', bg: spiderman },
   { name: 'THE WITCHER', color: '#0a0a00', accent: '#ffd700', bg: witcher },
+  { name: 'PUBG', color: '#000d1a', accent: '#00ff94', bg: pubg },
+  { name: 'ELDEN RING', color: '#0d0a00', accent: '#ff4500', bg: eldenring },
+  { name: 'BATMAN ARKHAM', color: '#05050f', accent: '#00bfff', bg: batman },
+  { name: 'CALL OF DUTY', color:  '#080808', accent: '#ff1493', bg: cod },
 ]
 
 export default function Hero() {
