@@ -7,6 +7,8 @@ import pubg from '../assets/images/pubg.jpg.jpg'
 import eldenring from '../assets/images/eldenring.jpg.jpg'
 import batman from '../assets/images/batman.jpg.jpg'
 import cod from '../assets/images/cod.jpg.jpg'
+import amcLogo from '../assets/images/amc-logo.png.png'
+import gdaiLogo from '../assets/images/gdai-logo.png.png'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
 import { useNavigate } from 'react-router-dom'
@@ -110,7 +112,7 @@ export default function Hero() {
   {/* AMC Logo */}
   <div className="flex flex-col items-center gap-2">
     <img
-      src="/src/assets/images/amc-logo.png.png"
+      src={amcLogo}
       alt="AMC Engineering College"
       className="h-24 md:h-28 object-contain"
       style={{ filter: 'brightness(1.2) drop-shadow(0 0 8px rgba(255,255,255,0.3))' }}
@@ -128,7 +130,7 @@ export default function Hero() {
   {/* GDAI Logo */}
   <div className="flex flex-col items-center gap-2">
     <img
-      src="/src/assets/images/gdai-logo.png.png"
+      src={gdaiLogo}
       alt="GDAI"
       className="h-24 md:h-28 object-contain"
       style={{
