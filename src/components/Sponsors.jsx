@@ -1,9 +1,9 @@
-import gdaiLogo from '../assets/images/gdai-logo.png.png'
+import gdaiLogo from '../assets/images/gdai.png'
 import React from 'react'
 
 export default function Sponsors() {
   return (
-    <section id="sponsors" className="py-24 px-6 md:px-12"
+    <section id="sponsors" className="snap-section min-h-screen flex items-center py-24 px-6 md:px-12"
       style={{ background: 'linear-gradient(135deg, #020408, #0a0800, #020408)' }}>
       <div className="max-w-6xl mx-auto">
         <div className="font-mono text-xs tracking-[6px] text-cyan-400 mb-4 flex items-center gap-3">
@@ -14,9 +14,7 @@ export default function Sponsors() {
         <div className="flex flex-wrap gap-6">
           {/* GDAI - Confirmed */}
           <div className="card-hover flex-1 min-w-[200px] max-w-[280px] bg-black/40 border border-amber-400/30 p-8 clip-corner text-center">
-            <div className="w-20 h-10 bg-amber-400/10 border border-amber-400/20 mx-auto mb-4 flex items-center justify-center">
-              <span className="font-mono text-[9px] text-amber-400 tracking-widest">GDAI LOGO</span>
-            </div>
+            <img src={gdaiLogo} alt="GDAI Logo" className="w-24 h-14 object-contain mx-auto mb-4" />
             <div className="font-orbitron text-sm font-bold text-white mb-1">GDAI</div>
             <div className="font-mono text-[10px] text-gray-500 mb-3">Game Developer Association of India</div>
             <div className="font-mono text-[9px] tracking-widest text-amber-400">TITLE SPONSOR</div>

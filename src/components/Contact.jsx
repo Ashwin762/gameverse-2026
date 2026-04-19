@@ -3,6 +3,8 @@ import React from 'react'
 const coordinators = [
   { initials: 'C1', name: 'KAUSHAL K', role: 'EVENT LEAD', phone: '+91 86609 75495' },
   { initials: 'C2', name: 'ANURAG MISHRA', role: 'EVENT COORDINATOR', phone: '+91 89706 97763' },
+  { initials: 'C3', name: 'C.G. KRUTHIN', role: 'EVENT COORDINATOR', phone: '+91 99641 46129' },
+  { initials: 'C4', name: 'ASHWIN S', role: 'EVENT COORDINATOR', phone: '+91 76248 62049' },
 ]
 
 export default function Contact() {
