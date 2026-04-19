@@ -1,4 +1,5 @@
-import amcLogo from '../assets/images/amc-logo.png.png'
+import amcLogo from '../assets/images/AMC.png'
+import gdaiLogo from '../assets/images/gdai.png'
 import React, { useEffect, useRef, useState } from 'react'
 
 const phases = [
@@ -23,21 +24,35 @@ export default function About() {
       style={{ background: 'linear-gradient(135deg, #020408 0%, #0a0015 50%, #020408 100%)' }}>
       <div className="max-w-6xl mx-auto w-full">
         <div className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            {/* College + Sponsor Badge */}
-<div className="flex flex-wrap items-center gap-6 mb-12 pb-8 border-b border-white/5">
-  <div>
-    <div className="font-orbitron font-black text-xl md:text-2xl text-white tracking-wider">AMC ENGINEERING COLLEGE</div>
-    <div className="font-orbitron text-sm text-cyan-400 mt-1">DEPARTMENT OF CSE (AI/ML) · BANGALORE</div>
-  </div>
-  <div className="h-10 w-px bg-white/10 hidden md:block" />
-  <div>
-    <div className="font-mono text-[10px] tracking-[4px] text-gray-500 mb-1">IN ASSOCIATION WITH</div>
-    <div className="font-orbitron font-bold text-lg" style={{ color: '#ffd700', textShadow: '0 0 20px rgba(255,215,0,0.3)' }}>
-      GDAI
-    </div>
-    <div className="font-mono text-[10px] text-gray-500 tracking-wider">GAME DEVELOPER ASSOCIATION OF INDIA</div>
-  </div>
-</div>
+          {/* College + Sponsor Badge */}
+          <div className="mb-12 pb-8 border-b border-white/5">
+            <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
+              <div className="flex items-center gap-4 justify-start">
+                <img src={amcLogo} alt="AMC Engineering College Logo" className="h-24 w-24 md:h-28 md:w-28 object-contain" />
+                <div>
+                  <div className="font-orbitron font-black text-lg md:text-2xl text-white tracking-wider">AMC ENGINEERING COLLEGE</div>
+                  <div className="font-orbitron text-xs md:text-sm text-cyan-400 mt-1">DEPARTMENT OF CSE (AI/ML) · BANGALORE</div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-center gap-3 px-2">
+                <div className="h-px w-8 md:w-14 bg-white/20" />
+                <span className="font-orbitron font-black text-xl md:text-2xl text-white/80">X</span>
+                <div className="h-px w-8 md:w-14 bg-white/20" />
+              </div>
+
+              <div className="flex items-center gap-4 justify-start md:justify-end">
+                <div className="order-2 md:order-1 text-left md:text-right">
+                  <div className="font-mono text-[10px] tracking-[4px] text-gray-500 mb-1">IN ASSOCIATION WITH</div>
+                  <div className="font-orbitron font-bold text-base md:text-lg" style={{ color: '#ffd700', textShadow: '0 0 20px rgba(255,215,0,0.3)' }}>
+                    GDAI
+                  </div>
+                  <div className="font-mono text-[9px] md:text-[10px] text-gray-500 tracking-wider">GAME DEVELOPER ASSOCIATION OF INDIA</div>
+                </div>
+                <img src={gdaiLogo} alt="GDAI Logo" className="order-1 md:order-2 h-24 w-24 md:h-28 md:w-28 object-contain" />
+              </div>
+            </div>
+          </div>
           <div className="font-mono text-xs tracking-[6px] text-cyan-400 mb-4 flex items-center gap-3">
             <div className="w-8 h-px bg-cyan-400" /> ABOUT THE EVENT
           </div>

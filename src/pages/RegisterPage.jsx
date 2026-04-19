@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { isSupabaseConfigured, supabase } from '../lib/supabase'
 
 export default function RegisterPage() {
   const navigate = useNavigate()
@@ -30,6 +30,10 @@ export default function RegisterPage() {
   const submit = async () => {
     if (!form.teamName || !form.leaderName || !form.leaderEmail || !form.leaderPhone || !form.leaderCollege) {
       setError('Please fill all required fields marked with *')
+      return
+    }
+    if (!isSupabaseConfigured || !supabase) {
+      setError('Registration backend is not configured yet. Ask the organizer to add Supabase env keys.')
       return
     }
     setLoading(true)
