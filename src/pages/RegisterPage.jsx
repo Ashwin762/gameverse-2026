@@ -11,18 +11,20 @@ export default function RegisterPage() {
   const [form, setForm] = useState({
     teamName: '', leaderName: '', leaderUSN: '',
     leaderBranch: '', leaderYear: '', leaderEmail: '',
-    leaderPhone: '', leaderCollege: '', psChoice: ''
+    leaderPhone: '', leaderCollege: ''
   })
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
   const update = (k, v) => setForm(f => ({ ...f, [k]: v }))
+
   const updateMember = (i, k, v) => {
     const m = [...members]
     m[i][k] = v
     setMembers(m)
   }
+
   const addMember = () => {
     if (members.length < 3) setMembers([...members, { name: '', usn: '', college: '' }])
   }
@@ -38,7 +40,17 @@ export default function RegisterPage() {
     }
     setLoading(true)
     setError('')
-    const { error: err } = await supabase.from('registrations').insert([{
+
+    const filteredMembers = members
+      .filter(m => m.name.trim() !== '')
+      .map(m => ({
+        name: m.name.trim(),
+        usn: m.usn.trim(),
+        college: m.college.trim()
+      }))
+
+    if (!supabase) { setError('Database not configured.'); setLoading(false); return }
+const { error: err } = await supabase.from('registrations').insert([{
       team_name: form.teamName,
       leader_name: form.leaderName,
       leader_usn: form.leaderUSN,
@@ -47,10 +59,10 @@ export default function RegisterPage() {
       leader_email: form.leaderEmail,
       leader_phone: form.leaderPhone,
       leader_college: form.leaderCollege,
-      ps_choice: form.psChoice,
-      members: members.filter(m => m.name),
+      members: filteredMembers,
       registered_at: new Date().toISOString()
     }])
+
     setLoading(false)
     if (err) { setError('Submission failed. Please try again.'); return }
     setSuccess(true)
@@ -60,7 +72,7 @@ export default function RegisterPage() {
   const labelClass = "block font-mono text-[11px] tracking-[3px] text-cyan-400 mb-2"
 
   if (success) return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-6"
+    <div className="min-h-screen flex items-center justify-center px-6"
       style={{ background: 'radial-gradient(ellipse at center, #001a10 0%, #020408 70%)' }}>
       <div className="text-center border border-green-400/30 bg-green-400/5 p-12 max-w-md w-full">
         <div className="text-5xl mb-6">🎮</div>
@@ -82,7 +94,8 @@ export default function RegisterPage() {
 
       {/* Header */}
       <div className="max-w-3xl mx-auto mb-10">
-        <button onClick={() => navigate('/')} className="font-mono text-xs tracking-widest text-gray-500 hover:text-cyan-400 transition-colors mb-8 flex items-center gap-2">
+        <button onClick={() => navigate('/')}
+          className="font-mono text-xs tracking-widest text-gray-500 hover:text-cyan-400 transition-colors mb-8 flex items-center gap-2">
           ← BACK TO HOME
         </button>
 
@@ -97,7 +110,7 @@ export default function RegisterPage() {
         </p>
 
         {/* FCFS Alert */}
-        <div className="border border-orange-400/50 bg-orange-400/5 p-4 flex gap-3 items-start mb-2">
+        <div className="border border-orange-400/50 bg-orange-400/5 p-4 flex gap-3 items-start mb-3">
           <span className="text-orange-400 text-lg flex-shrink-0">⚡</span>
           <div>
             <span className="font-orbitron text-xs font-bold text-orange-400 tracking-widest">FIRST COME FIRST SERVED — </span>
@@ -136,22 +149,27 @@ export default function RegisterPage() {
           <div className="grid md:grid-cols-2 gap-5">
             <div>
               <label className={labelClass}>FULL NAME *</label>
-              <input type="text" value={form.leaderName} onChange={e => update('leaderName', e.target.value)}
+              <input type="text" value={form.leaderName}
+                onChange={e => update('leaderName', e.target.value)}
                 placeholder="Leader's full name" className={inputClass} />
             </div>
             <div>
               <label className={labelClass}>USN</label>
-              <input type="text" value={form.leaderUSN} onChange={e => update('leaderUSN', e.target.value)}
+              <input type="text" value={form.leaderUSN}
+                onChange={e => update('leaderUSN', e.target.value)}
                 placeholder="1AM22CS000" className={inputClass} />
             </div>
             <div>
               <label className={labelClass}>BRANCH</label>
-              <input type="text" value={form.leaderBranch} onChange={e => update('leaderBranch', e.target.value)}
+              <input type="text" value={form.leaderBranch}
+                onChange={e => update('leaderBranch', e.target.value)}
                 placeholder="CSE / ECE / ME..." className={inputClass} />
             </div>
             <div>
               <label className={labelClass}>YEAR</label>
-              <select value={form.leaderYear} onChange={e => update('leaderYear', e.target.value)} className={inputClass}>
+              <select value={form.leaderYear}
+                onChange={e => update('leaderYear', e.target.value)}
+                className={inputClass}>
                 <option value="">Select Year</option>
                 {['1st Year', '2nd Year', '3rd Year', '4th Year'].map(y => (
                   <option key={y} value={y}>{y}</option>
@@ -160,18 +178,22 @@ export default function RegisterPage() {
             </div>
             <div>
               <label className={labelClass}>EMAIL *</label>
-              <input type="email" value={form.leaderEmail} onChange={e => update('leaderEmail', e.target.value)}
+              <input type="email" value={form.leaderEmail}
+                onChange={e => update('leaderEmail', e.target.value)}
                 placeholder="leader@email.com" className={inputClass} />
             </div>
             <div>
               <label className={labelClass}>PHONE *</label>
-              <input type="tel" value={form.leaderPhone} onChange={e => update('leaderPhone', e.target.value)}
+              <input type="tel" value={form.leaderPhone}
+                onChange={e => update('leaderPhone', e.target.value)}
                 placeholder="+91 XXXXX XXXXX" className={inputClass} />
             </div>
             <div className="md:col-span-2">
               <label className={labelClass}>COLLEGE NAME *</label>
-              <input type="text" value={form.leaderCollege} onChange={e => update('leaderCollege', e.target.value)}
-                placeholder="AMC Engineering College / Your college name" className={inputClass} />
+              <input type="text" value={form.leaderCollege}
+                onChange={e => update('leaderCollege', e.target.value)}
+                placeholder="AMC Engineering College / Your college name"
+                className={inputClass} />
             </div>
           </div>
         </div>
@@ -180,25 +202,30 @@ export default function RegisterPage() {
         <div className="border border-pink-400/20 p-6 mb-8"
           style={{ background: 'rgba(255,0,255,0.02)' }}>
           <div className="font-mono text-[11px] tracking-[4px] text-pink-400 mb-6 pb-3 border-b border-pink-400/10">
-            TEAM MEMBERS ({members.length}/3 MEMBERS + LEADER = {members.length + 1} TOTAL)
+            TEAM MEMBERS ({members.length}/3 · TOTAL WITH LEADER = {members.length + 1})
           </div>
           {members.map((m, i) => (
             <div key={i} className="grid md:grid-cols-3 gap-4 mb-4">
               <div>
-                <label className="block font-mono text-[10px] tracking-[2px] text-pink-400/70 mb-2">MEMBER {i + 1} NAME</label>
-                <input type="text" value={m.name} onChange={e => updateMember(i, 'name', e.target.value)}
+                <label className="block font-mono text-[10px] tracking-[2px] text-pink-400/70 mb-2">
+                  MEMBER {i + 1} NAME
+                </label>
+                <input type="text" value={m.name}
+                  onChange={e => updateMember(i, 'name', e.target.value)}
                   placeholder={`Member ${i + 1} full name`}
                   className="w-full bg-gray-900 border border-gray-700 text-white placeholder-gray-500 px-4 py-3 font-rajdhani text-base outline-none focus:border-pink-400 focus:bg-gray-800 transition-all" />
               </div>
               <div>
                 <label className="block font-mono text-[10px] tracking-[2px] text-pink-400/70 mb-2">USN</label>
-                <input type="text" value={m.usn} onChange={e => updateMember(i, 'usn', e.target.value)}
+                <input type="text" value={m.usn}
+                  onChange={e => updateMember(i, 'usn', e.target.value)}
                   placeholder="USN"
                   className="w-full bg-gray-900 border border-gray-700 text-white placeholder-gray-500 px-4 py-3 font-rajdhani text-base outline-none focus:border-pink-400 focus:bg-gray-800 transition-all" />
               </div>
               <div>
                 <label className="block font-mono text-[10px] tracking-[2px] text-pink-400/70 mb-2">COLLEGE</label>
-                <input type="text" value={m.college} onChange={e => updateMember(i, 'college', e.target.value)}
+                <input type="text" value={m.college}
+                  onChange={e => updateMember(i, 'college', e.target.value)}
                   placeholder="College name"
                   className="w-full bg-gray-900 border border-gray-700 text-white placeholder-gray-500 px-4 py-3 font-rajdhani text-base outline-none focus:border-pink-400 focus:bg-gray-800 transition-all" />
               </div>
@@ -211,8 +238,6 @@ export default function RegisterPage() {
             </button>
           )}
         </div>
-
-          
 
         {/* Error */}
         {error && (

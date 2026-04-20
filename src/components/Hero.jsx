@@ -3,6 +3,10 @@ import gta6 from '../assets/images/gta6.jpg.jpg'
 import spiderman from '../assets/images/spiderman.jpg.jpg'
 import rdr from '../assets/images/rdr.jpg.jpg'
 import witcher from '../assets/images/witcher.jpg.jpg'
+import pubg from '../assets/images/pubg.jpg.jpg'
+import eldenring from '../assets/images/eldenring.jpg.jpg'
+import batman from '../assets/images/batman.jpg.jpg'
+import cod from '../assets/images/cod.jpg.jpg'
 import amcLogo from '../assets/images/AMC.png'
 import gdaiLogo from '../assets/images/gdai.png'
 import React, { useEffect, useState } from 'react'
@@ -15,6 +19,10 @@ const GAMES = [
   { name: 'GTA VI', color: '#0a001a', accent: '#ff00ff', bg: gta6 },
   { name: 'SPIDER-MAN', color: '#00001a', accent: '#00f5ff', bg: spiderman },
   { name: 'THE WITCHER', color: '#0a0a00', accent: '#ffd700', bg: witcher },
+  { name: 'PUBG', color: '#000d1a', accent: '#00ff94', bg: pubg },
+  { name: 'ELDEN RING', color: '#0d0a00', accent: '#ff4500', bg: eldenring },
+  { name: 'BATMAN ARKHAM', color: '#05050f', accent: '#00bfff', bg: batman },
+  { name: 'CALL OF DUTY', color:  '#080808', accent: '#ff1493', bg: cod },
 ]
 
 export default function Hero() {
@@ -94,10 +102,41 @@ export default function Hero() {
 </h1>
 
         {/* Year */}
-        <div className="font-orbitron text-[clamp(12px,2vw,20px)] tracking-[12px] mb-8"
-          style={{ color: game.accent }}>
-          — 2 0 2 6 —
-        </div>
+<div className="font-orbitron text-[clamp(12px,2vw,20px)] tracking-[12px] mb-6"
+  style={{ color: game.accent }}>
+  — 2 0 2 6 —
+</div>
+
+{/* Logos */}
+<div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
+  <div className="flex flex-col items-center gap-1">
+    <img
+      src={amcLogo}
+      alt="AMC Engineering College"
+      className="h-10 w-10 md:h-16 md:w-16 object-contain"
+      style={{ filter: 'brightness(1.2) drop-shadow(0 0 8px rgba(255,255,255,0.3))' }}
+    />
+    <div className="font-orbitron text-[8px] md:text-[10px] tracking-[2px] text-white/70">AMC ENGINEERING COLLEGE</div>
+  </div>
+  <div className="flex flex-col items-center gap-1 opacity-40">
+    <div className="w-px h-6 md:h-8 bg-white/40" />
+    <div className="font-mono text-[8px] tracking-widest text-gray-500">X</div>
+    <div className="w-px h-6 md:h-8 bg-white/40" />
+  </div>
+  <div className="flex flex-col items-center gap-1">
+    <img
+      src={gdaiLogo}
+      alt="GDAI"
+      className="h-10 md:h-16 object-contain"
+      style={{
+        maxWidth: '120px',
+        filter: `brightness(1.2) drop-shadow(0 0 10px ${game.accent}60)`,
+        transition: 'filter 1s ease'
+      }}
+    />
+    <div className="font-orbitron text-[8px] md:text-[10px] tracking-[2px] text-white/70">TITLE SPONSOR</div>
+  </div>
+</div>
 
         {/* Tagline */}
         <p className="font-rajdhani text-lg text-gray-400 max-w-xl mx-auto mb-8 font-light">
