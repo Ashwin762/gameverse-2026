@@ -11,7 +11,7 @@ export default function Contact() {
   return (
     <section id="contact" className="snap-section min-h-screen flex items-center py-24 px-6 md:px-12"
       style={{ background: 'linear-gradient(135deg, #020408, #001010, #020408)' }}>
-      <div className="max-w-6xl mx-auto w-full">
+      <div className="max-w-6xl mx-auto w-full relative z-10">
         <div className="font-mono text-xs tracking-[6px] text-cyan-400 mb-4 flex items-center gap-3">
           <div className="w-8 h-px bg-cyan-400" /> CONTACT
         </div>
