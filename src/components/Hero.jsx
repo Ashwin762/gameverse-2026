@@ -111,7 +111,7 @@ export default function Hero() {
 <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
   <div className="flex flex-col items-center gap-1">
     <img
-      src="/src/assets/images/amc-logo.png.png"
+      src={amcLogo}
       alt="AMC Engineering College"
       className="h-10 w-10 md:h-16 md:w-16 object-contain"
       style={{ filter: 'brightness(1.2) drop-shadow(0 0 8px rgba(255,255,255,0.3))' }}
@@ -125,7 +125,7 @@ export default function Hero() {
   </div>
   <div className="flex flex-col items-center gap-1">
     <img
-      src="/src/assets/images/gdai-logo.png.png"
+      src={gdaiLogo}
       alt="GDAI"
       className="h-10 md:h-16 object-contain"
       style={{
