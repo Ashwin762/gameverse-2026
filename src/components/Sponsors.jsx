@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import gdaiLogo from '../assets/images/gdai.png'
+import gdaiLogo from '../assets/images/gdai-logo.png.png'
+import HexGrid from './backgrounds/HexGrid'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -12,15 +13,16 @@ const fadeUp = {
 
 export default function Sponsors() {
   return (
-    <section id="sponsors" className="snap-section min-h-screen flex items-center py-24 px-6 md:px-12"
+    <section id="sponsors" className="snap-section min-h-screen flex items-center py-24 px-6 md:px-12 relative overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #020408, #0a0800, #020408)' }}>
-      <div className="max-w-6xl mx-auto w-full">
+      <HexGrid />
+      <div className="max-w-6xl mx-auto w-full relative z-10">
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
           <div className="font-mono text-xs tracking-[6px] text-cyan-400 mb-4 flex items-center gap-3">
             <div className="w-8 h-px bg-cyan-400" /> SPONSORS
           </div>
-          <h2 className="font-orbitron font-black text-4xl md:text-5xl text-white mb-12">
+          <h2 className="font-rdr text-4xl md:text-5xl text-white mb-12">
             Powered <span className="neon-cyan">By</span>
           </h2>
         </motion.div>

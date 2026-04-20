@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        rdr: ['RDR', 'sans-serif'],
         godofwar: ['GodOfWar', 'sans-serif'],
         bebas: ['Bebas Neue', 'sans-serif'],
         orbitron: ['Orbitron', 'sans-serif'],

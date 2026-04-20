@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import CircuitLines from './backgrounds/CircuitLines'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -16,17 +17,19 @@ const coordinators = [
   { initials: 'C4', name: 'ASHWIN S', role: 'EVENT COORDINATOR', phone: '+91 76248 62049' },
 ]
 
+
 export default function Contact() {
   return (
-    <section id="contact" className="snap-section min-h-screen flex items-center py-24 px-6 md:px-12"
+    <section id="contact" className="snap-section min-h-screen flex items-center py-24 px-6 md:px-12 relative overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #020408, #001010, #020408)' }}>
-      <div className="max-w-6xl mx-auto w-full">
+      <CircuitLines />
+      <div className="max-w-6xl mx-auto w-full relative z-10">
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
           <div className="font-mono text-xs tracking-[6px] text-cyan-400 mb-4 flex items-center gap-3">
             <div className="w-8 h-px bg-cyan-400" /> CONTACT
           </div>
-          <h2 className="font-orbitron font-black text-4xl md:text-5xl text-white mb-12">
+          <h2 className="font-rdr text-4xl md:text-5xl text-white mb-12">
             Get in <span className="neon-cyan">Touch</span>
           </h2>
         </motion.div>
@@ -92,7 +95,6 @@ export default function Contact() {
             </div>
           </div>
         </motion.div>
-
       </div>
     </section>
   )

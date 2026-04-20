@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import amcLogo from '../assets/images/AMC.png'
 import gdaiLogo from '../assets/images/gdai.png'
+import MatrixRain from './backgrounds/MatrixRain'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -20,9 +21,10 @@ const phases = [
 
 export default function About() {
   return (
-    <section id="about" className="snap-section min-h-screen flex items-center py-24 px-6 md:px-12"
+    <section id="about" className="snap-section min-h-screen flex items-center py-24 px-6 md:px-12 relative overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #020408 0%, #0a0015 50%, #020408 100%)' }}>
-      <div className="max-w-6xl mx-auto w-full">
+      <MatrixRain />
+      <div className="max-w-6xl mx-auto w-full relative z-10">
 
         {/* College + Sponsor Badge */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
@@ -78,7 +80,7 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <motion.h2 custom={1} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-              className="font-orbitron font-black text-4xl md:text-6xl text-white leading-tight mb-6">
+              className="font-rdr text-4xl md:text-6xl text-white leading-tight mb-6">
               What is<br /><span className="neon-cyan">GameVerse?</span>
             </motion.h2>
 
