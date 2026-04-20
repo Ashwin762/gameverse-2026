@@ -56,7 +56,7 @@ export default function Hero() {
   const game = GAMES[current]
 
   return (
-    <section id="hero" className="snap-section relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+    <section id="hero" className="snap-section relative h-screen flex flex-col items-center justify-center overflow-hidden"
   style={{
     backgroundImage: `url(${game.bg})`,
     backgroundSize: 'cover',
@@ -90,71 +90,71 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-6 mt-16">
+      <div className="relative z-10 text-center px-6 pt-20 md:pt-16 pb-20 md:pb-16 w-full max-w-5xl mx-auto">
 
         {/* Title */}
-        <h1 className="font-godofwar leading-none mb-4">
-  <span className="block text-white text-[clamp(80px,14vw,180px)] tracking-wider">GAME</span>
-  <span className="block tracking-wider text-[clamp(80px,14vw,180px)]"
+        <h1 className="font-godofwar leading-none mb-2 md:mb-3">
+  <span className="block text-white text-[clamp(56px,10vw,128px)] tracking-wider">GAME</span>
+  <span className="block tracking-wider text-[clamp(56px,10vw,128px)]"
     style={{ color: 'transparent', WebkitTextStroke: `2px ${game.accent}`, transition: 'all 1s ease' }}>
     VERSE
   </span>
 </h1>
 
         {/* Year */}
-<div className="font-orbitron text-[clamp(12px,2vw,20px)] tracking-[12px] mb-6"
+<div className="font-orbitron text-[clamp(10px,1.6vw,16px)] tracking-[8px] mb-4"
   style={{ color: game.accent }}>
   — 2 0 2 6 —
 </div>
 
 {/* Logos */}
-<div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
+<div className="flex items-center justify-center gap-3 mb-4 flex-wrap">
   <div className="flex flex-col items-center gap-1">
     <img
       src={amcLogo}
       alt="AMC Engineering College"
-      className="h-10 w-10 md:h-16 md:w-16 object-contain"
+      className="h-9 w-9 md:h-12 md:w-12 object-contain"
       style={{ filter: 'brightness(1.2) drop-shadow(0 0 8px rgba(255,255,255,0.3))' }}
     />
-    <div className="font-orbitron text-[8px] md:text-[10px] tracking-[2px] text-white/70">AMC ENGINEERING COLLEGE</div>
+    <div className="font-orbitron text-[7px] md:text-[9px] tracking-[1.5px] text-white/70">AMC ENGINEERING COLLEGE</div>
   </div>
   <div className="flex flex-col items-center gap-1 opacity-40">
-    <div className="w-px h-6 md:h-8 bg-white/40" />
+    <div className="w-px h-5 md:h-6 bg-white/40" />
     <div className="font-mono text-[8px] tracking-widest text-gray-500">X</div>
-    <div className="w-px h-6 md:h-8 bg-white/40" />
+    <div className="w-px h-5 md:h-6 bg-white/40" />
   </div>
   <div className="flex flex-col items-center gap-1">
     <img
       src={gdaiLogo}
       alt="GDAI"
-      className="h-10 md:h-16 object-contain"
+      className="h-9 md:h-12 object-contain"
       style={{
-        maxWidth: '120px',
+        maxWidth: '96px',
         filter: `brightness(1.2) drop-shadow(0 0 10px ${game.accent}60)`,
         transition: 'filter 1s ease'
       }}
     />
-    <div className="font-orbitron text-[8px] md:text-[10px] tracking-[2px] text-white/70">TITLE SPONSOR</div>
+    <div className="font-orbitron text-[7px] md:text-[9px] tracking-[1.5px] text-white/70">TITLE SPONSOR</div>
   </div>
 </div>
 
         {/* Tagline */}
-        <p className="font-rajdhani text-lg text-gray-400 max-w-xl mx-auto mb-8 font-light">
+        <p className="font-rajdhani text-sm md:text-base text-gray-400 max-w-2xl mx-auto mb-5 font-light leading-relaxed">
           A <span style={{ color: game.accent }}>4-day gameathon</span> where teams build solutions to epic problem statements. The finale? An{' '}
           <span style={{ color: game.accent }}>8-hour offline battle</span> at AMC Bangalore.
         </p>
 
         {/* Buttons */}
-        <div className="flex gap-4 justify-center flex-wrap mb-12">
+        <div className="flex gap-3 justify-center flex-wrap mb-6">
           <button
             onClick={() => navigate('/register')}
-            className="font-mono text-sm tracking-widest px-8 py-3 clip-hex font-bold transition-all hover:scale-105"
+            className="font-mono text-xs md:text-sm tracking-widest px-6 md:px-7 py-2.5 clip-hex font-bold transition-all hover:scale-105"
             style={{ background: game.accent, color: '#000' }}>
             REGISTER NOW
           </button>
           <Link to="about" smooth offset={-64}>
             <button
-              className="font-mono text-sm tracking-widest px-8 py-3 clip-hex border transition-all hover:bg-white/5"
+              className="font-mono text-xs md:text-sm tracking-widest px-6 md:px-7 py-2.5 clip-hex border transition-all hover:bg-white/5"
               style={{ borderColor: game.accent, color: game.accent }}>
               LEARN MORE
             </button>
@@ -163,19 +163,19 @@ export default function Hero() {
 
         {/* Countdown */}
         <div>
-          <div className="font-mono text-[10px] tracking-[4px] text-gray-500 mb-4">▶ OFFLINE FINALE IN</div>
-          <div className="flex gap-6 justify-center items-start">
+          <div className="font-mono text-[9px] md:text-[10px] tracking-[3px] text-gray-500 mb-2">▶ OFFLINE FINALE IN</div>
+          <div className="flex gap-3 md:gap-5 justify-center items-start">
             {[['DAYS', days], ['HRS', hours], ['MIN', mins], ['SEC', secs]].map(([unit, val], i) => (
               <React.Fragment key={unit}>
                 {i > 0 && (
-                  <span className="font-orbitron text-3xl opacity-30 pt-1" style={{ color: game.accent }}>:</span>
+                  <span className="font-orbitron text-xl md:text-2xl opacity-30 pt-1" style={{ color: game.accent }}>:</span>
                 )}
                 <div className="text-center">
-                  <div className="font-orbitron font-black text-4xl md:text-5xl"
-                    style={{ color: game.accent, textShadow: `0 0 20px ${game.accent}80` }}>
+                  <div className="font-orbitron font-black text-2xl md:text-4xl"
+                    style={{ color: game.accent, textShadow: `0 0 14px ${game.accent}80` }}>
                     {val}
                   </div>
-                  <div className="font-mono text-[9px] tracking-[3px] text-gray-500 mt-1">{unit}</div>
+                  <div className="font-mono text-[8px] tracking-[2px] text-gray-500 mt-1">{unit}</div>
                 </div>
               </React.Fragment>
             ))}
@@ -183,7 +183,7 @@ export default function Hero() {
         </div>
 
         {/* Game switcher dots */}
-        <div className="flex gap-2 justify-center mt-8">
+        <div className="flex gap-2 justify-center mt-5">
           {GAMES.map((g, i) => (
             <button key={i} onClick={() => setCurrent(i)}
               className="w-2 h-2 rounded-full transition-all"
@@ -196,9 +196,9 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+      <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40">
         <div className="font-mono text-[10px] tracking-widest text-gray-500">SCROLL</div>
-        <div className="w-px h-12 bg-gradient-to-b from-cyan-400 to-transparent animate-pulse" />
+        <div className="w-px h-8 md:h-10 bg-gradient-to-b from-cyan-400 to-transparent animate-pulse" />
       </div>
     </section>
   )
