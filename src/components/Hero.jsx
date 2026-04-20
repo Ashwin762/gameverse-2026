@@ -3,6 +3,15 @@ import gta6 from '../assets/images/gta6.jpg.jpg'
 import spiderman from '../assets/images/spiderman.jpg.jpg'
 import rdr from '../assets/images/rdr.jpg.jpg'
 import witcher from '../assets/images/witcher.jpg.jpg'
+<<<<<<< Updated upstream
+=======
+import pubg from '../assets/images/pubg.jpg.jpg'
+import eldenring from '../assets/images/eldenring.jpg.jpg'
+import batman from '../assets/images/batman.jpg.jpg'
+import cod from '../assets/images/cod.jpg.jpg'
+import amcLogo from '../assets/images/AMC.png'
+import gdaiLogo from '../assets/images/gdai.png'
+>>>>>>> Stashed changes
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-scroll'
 import { useNavigate } from 'react-router-dom'
