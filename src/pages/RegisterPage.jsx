@@ -49,7 +49,8 @@ export default function RegisterPage() {
         college: m.college.trim()
       }))
 
-    const { error: err } = await supabase.from('registrations').insert([{
+    if (!supabase) { setError('Database not configured.'); setLoading(false); return }
+const { error: err } = await supabase.from('registrations').insert([{
       team_name: form.teamName,
       leader_name: form.leaderName,
       leader_usn: form.leaderUSN,

@@ -108,38 +108,33 @@ export default function Hero() {
 </div>
 
 {/* Logos */}
-<div className="flex items-center justify-center gap-6 mb-8 flex-wrap">
-  {/* AMC Logo */}
-  <div className="flex flex-col items-center gap-2">
+<div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
+  <div className="flex flex-col items-center gap-1">
     <img
-      src={amcLogo}
+      src="/src/assets/images/amc-logo.png.png"
       alt="AMC Engineering College"
-      className="h-24 md:h-28 object-contain"
+      className="h-10 w-10 md:h-16 md:w-16 object-contain"
       style={{ filter: 'brightness(1.2) drop-shadow(0 0 8px rgba(255,255,255,0.3))' }}
     />
-    <div className="font-orbitron text-[10px] tracking-[3px] text-white/70">AMC ENGINEERING COLLEGE</div>
+    <div className="font-orbitron text-[8px] md:text-[10px] tracking-[2px] text-white/70">AMC ENGINEERING COLLEGE</div>
   </div>
-
-  {/* Divider */}
   <div className="flex flex-col items-center gap-1 opacity-40">
-    <div className="w-px h-8 bg-white/40" />
-    <div className="font-mono text-[9px] tracking-widest text-gray-500">X</div>
-    <div className="w-px h-8 bg-white/40" />
+    <div className="w-px h-6 md:h-8 bg-white/40" />
+    <div className="font-mono text-[8px] tracking-widest text-gray-500">X</div>
+    <div className="w-px h-6 md:h-8 bg-white/40" />
   </div>
-
-  {/* GDAI Logo */}
-  <div className="flex flex-col items-center gap-2">
+  <div className="flex flex-col items-center gap-1">
     <img
-      src={gdaiLogo}
+      src="/src/assets/images/gdai-logo.png.png"
       alt="GDAI"
-      className="h-24 md:h-28 object-contain"
+      className="h-10 md:h-16 object-contain"
       style={{
-        maxWidth: '220px',
+        maxWidth: '120px',
         filter: `brightness(1.2) drop-shadow(0 0 10px ${game.accent}60)`,
         transition: 'filter 1s ease'
       }}
     />
-    <div className="font-orbitron text-[10px] tracking-[3px] text-white/70">TITLE SPONSOR</div>
+    <div className="font-orbitron text-[8px] md:text-[10px] tracking-[2px] text-white/70">TITLE SPONSOR</div>
   </div>
 </div>
 
