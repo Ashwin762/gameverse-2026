@@ -10,10 +10,10 @@ const fadeUp = {
 }
 
 const coordinators = [
-  { initials: 'C1', name: 'COORDINATOR NAME', role: 'EVENT LEAD', phone: '+91 XXXXX XXXXX' },
-  { initials: 'C2', name: 'COORDINATOR NAME', role: 'TECH LEAD', phone: '+91 XXXXX XXXXX' },
-  { initials: 'C3', name: 'COORDINATOR NAME', role: 'LOGISTICS', phone: '+91 XXXXX XXXXX' },
-  { initials: 'C4', name: 'COORDINATOR NAME', role: 'DESIGN LEAD', phone: '+91 XXXXX XXXXX' },
+  { initials: 'C1', name: 'KAUSHAL K', role: 'EVENT LEAD', phone: '+91 86609 75495' },
+  { initials: 'C2', name: 'ANURAG MISHRA', role: 'EVENT COORDINATOR', phone: '+91 89706 97763' },
+  { initials: 'C3', name: 'C.G. KRUTHIN', role: 'EVENT COORDINATOR', phone: '+91 99641 46129' },
+  { initials: 'C4', name: 'ASHWIN S', role: 'EVENT COORDINATOR', phone: '+91 76248 62049' },
 ]
 
 export default function Contact() {
