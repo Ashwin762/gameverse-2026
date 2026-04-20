@@ -44,7 +44,7 @@ export default function Updates() {
   const [hovered, setHovered] = useState(null)
 
   return (
-    <section id="updates" className="min-h-screen flex items-center py-24 px-6 md:px-16 relative overflow-hidden"
+    <section id="updates" className="snap-section min-h-screen py-24 px-6 md:px-16 relative"
       style={{ background: 'linear-gradient(160deg, #020408 0%, #0d0800 40%, #020408 100%)' }}>
 
       {/* Atmospheric bg text */}

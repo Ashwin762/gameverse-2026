@@ -13,7 +13,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const links = ['about','events','updates','sponsors','contact']
+  const links = [
+    { target: 'about', label: 'ABOUT' },
+    { target: 'events', label: 'EVENTS' },
+    { target: 'updates', label: 'TIMELINE' },
+    { target: 'sponsors', label: 'SPONSORS' },
+    { target: 'contact', label: 'CONTACT' },
+  ]
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 h-16 flex items-center justify-between transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-cyan-500/20' : 'bg-transparent'}`}>
@@ -23,10 +29,10 @@ export default function Navbar() {
 
       {/* Desktop */}
       <ul className="hidden md:flex gap-8">
-        {links.map(l => (
-          <li key={l}>
-            <Link to={l} smooth spy offset={-64} className="font-mono text-xs tracking-widest text-gray-400 hover:text-cyan-400 cursor-pointer uppercase transition-colors">
-              {l}
+        {links.map(link => (
+          <li key={link.target}>
+            <Link to={link.target} smooth spy offset={-64} className="font-mono text-xs tracking-widest text-gray-400 hover:text-cyan-400 cursor-pointer uppercase transition-colors">
+              {link.label}
             </Link>
           </li>
         ))}
@@ -41,10 +47,10 @@ export default function Navbar() {
       <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-cyan-400 text-xl">☰</button>
       {menuOpen && (
         <div className="absolute top-16 left-0 right-0 bg-black/95 border-b border-cyan-500/20 p-6 flex flex-col gap-4 md:hidden">
-          {links.map(l => (
-            <Link key={l} to={l} smooth spy offset={-64} onClick={() => setMenuOpen(false)}
+          {links.map(link => (
+            <Link key={link.target} to={link.target} smooth spy offset={-64} onClick={() => setMenuOpen(false)}
               className="font-mono text-xs tracking-widest text-gray-400 hover:text-cyan-400 cursor-pointer uppercase">
-              {l}
+              {link.label}
             </Link>
           ))}
           <button onClick={() => { navigate('/register'); setMenuOpen(false) }}
