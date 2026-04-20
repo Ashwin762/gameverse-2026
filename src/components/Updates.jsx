@@ -9,18 +9,13 @@ const updates = [
 
 export default function Updates() {
   return (
-<<<<<<< Updated upstream
-    <section id="updates" className="snap-section min-h-screen flex items-center py-24 px-6 md:px-12"
-      style={{ background: 'linear-gradient(135deg, #020408, #100010, #020408)' }}>
+    <section id="updates" className="snap-section min-h-screen flex items-start md:items-center py-14 md:py-20 px-6 md:px-16 relative overflow-hidden"
+      style={{ background: 'linear-gradient(160deg, #020408 0%, #0d0800 40%, #020408 100%)' }}>
       <div className="max-w-6xl mx-auto w-full">
         <div className="font-mono text-xs tracking-[6px] text-cyan-400 mb-4 flex items-center gap-3">
           <div className="w-8 h-px bg-cyan-400" /> ANNOUNCEMENTS
         </div>
         <h2 className="font-orbitron font-black text-4xl md:text-5xl text-white mb-12">Latest <span className="neon-cyan">Updates</span></h2>
-=======
-    <section id="updates" className="snap-section min-h-screen flex items-start md:items-center py-14 md:py-20 px-6 md:px-16 relative overflow-hidden"
-      style={{ background: 'linear-gradient(160deg, #020408 0%, #0d0800 40%, #020408 100%)' }}>
->>>>>>> Stashed changes
 
         <div className="grid md:grid-cols-2 gap-5">
           {updates.map((u, i) => (
