@@ -34,7 +34,18 @@ body {
   color: #e8f4f8;
   font-family: 'Rajdhani', sans-serif;
   overflow-x: hidden;
-  cursor: crosshair;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='7' fill='none' stroke='%2300f5ff' stroke-width='1.8'/%3E%3Cline x1='18' y1='1.5' x2='18' y2='10.5' stroke='%2300f5ff' stroke-width='2'/%3E%3Cline x1='18' y1='25.5' x2='18' y2='34.5' stroke='%2300f5ff' stroke-width='2'/%3E%3Cline x1='1.5' y1='18' x2='10.5' y2='18' stroke='%2300f5ff' stroke-width='2'/%3E%3Cline x1='25.5' y1='18' x2='34.5' y2='18' stroke='%2300f5ff' stroke-width='2'/%3E%3Ccircle cx='18' cy='18' r='1.8' fill='%23ffffff'/%3E%3C/svg%3E") 18 18, auto;
+}
+
+a,
+button,
+[role='button'],
+input,
+textarea,
+select,
+label,
+summary {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M5 5L5 27L11 21L15 29L19 27L15 19L23 19L5 5Z' fill='%2300f5ff' stroke='%23001824' stroke-width='1.5'/%3E%3C/svg%3E") 4 4, pointer;
 }
 
 /* SCROLLBAR */
@@ -166,9 +177,24 @@ body {
   transition: filter 1s ease;
 }
 
+.gv-intro-root,
+.gv-intro-canvas,
+.gv-intro-particles {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='7' fill='none' stroke='%2300f5ff' stroke-width='1.8'/%3E%3Cline x1='18' y1='1.5' x2='18' y2='10.5' stroke='%2300f5ff' stroke-width='2'/%3E%3Cline x1='18' y1='25.5' x2='18' y2='34.5' stroke='%2300f5ff' stroke-width='2'/%3E%3Cline x1='1.5' y1='18' x2='10.5' y2='18' stroke='%2300f5ff' stroke-width='2'/%3E%3Cline x1='25.5' y1='18' x2='34.5' y2='18' stroke='%2300f5ff' stroke-width='2'/%3E%3Ccircle cx='18' cy='18' r='1.8' fill='%23ffffff'/%3E%3C/svg%3E") 18 18, auto;
+}
+
+.gv-intro-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  opacity: 0.32;
+  pointer-events: none;
+}
+
 .gv-intro-canvas {
   position: absolute;
   inset: 0;
+  z-index: 10;
 }
 
 .gv-intro-title-wrap {
@@ -210,17 +236,17 @@ body {
   bottom: 10vh;
   text-align: center;
   pointer-events: none;
-  color: #00f2ff;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.35rem;
-  text-shadow: 0 0 10px rgba(0, 242, 255, 0.7);
+  text-shadow: 0 0 14px rgba(255, 72, 72, 0.7);
   font-family: 'Share Tech Mono', monospace;
   padding: 0 16px;
 }
 
 .gv-intro-glitch {
   display: inline-block;
-  font-size: clamp(0.72rem, 1.35vw, 1rem);
+  font-size: clamp(1.44rem, 2.7vw, 2rem);
   animation: gvIntroPulse 2s infinite;
 }
 
