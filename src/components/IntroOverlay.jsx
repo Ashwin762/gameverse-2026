@@ -19,8 +19,20 @@ function disposeMaterial(material) {
   material.dispose()
 }
 
+function normalizeOpaqueMaterial(material) {
+  if (!material) {
+    return
+  }
+  material.transparent = false
+  material.opacity = 1
+  material.alphaTest = 0
+  material.depthWrite = true
+  material.needsUpdate = true
+}
+
 export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL }) {
   const rootRef = useRef(null)
+  const particleCanvasRef = useRef(null)
   const canvasRef = useRef(null)
   const modelRef = useRef(null)
   const mouseRef = useRef(new THREE.Vector2(0, 0))
@@ -30,11 +42,102 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
 
   useEffect(() => {
     const rootEl = rootRef.current
+    const particleCanvasEl = particleCanvasRef.current
     const canvasEl = canvasRef.current
 
-    if (!rootEl || !canvasEl) {
+    if (!rootEl || !canvasEl || !particleCanvasEl) {
       return undefined
     }
+
+    const particleCtx = particleCanvasEl.getContext('2d')
+    if (!particleCtx) {
+      return undefined
+    }
+
+    const particleSymbols = ['△', '✕', '◯', '☐']
+
+    class HudParticle {
+      constructor(width, height) {
+        this.x = Math.random() * width
+        this.y = Math.random() * height
+        this.baseDy = 0.35 + Math.random() * 1.2
+        this.dy = this.baseDy
+        this.opacity = 0.18 + Math.random() * 0.2
+        this.char = particleSymbols[Math.floor(Math.random() * particleSymbols.length)]
+        this.size = 12 + Math.random() * 14
+      }
+
+      reset(width) {
+        this.x = Math.random() * width
+        this.y = -50
+      }
+
+      update(width, height, vibrancy) {
+        this.dy = this.baseDy * vibrancy
+        this.y += this.dy
+        if (this.y > height) {
+          this.reset(width)
+        }
+      }
+
+      draw(ctx) {
+        ctx.font = `${this.size}px 'Share Tech Mono', monospace`
+        ctx.fillStyle = `rgba(0,242,255,${this.opacity})`
+        ctx.fillText(this.char, this.x, this.y)
+      }
+    }
+
+    let particleWidth = window.innerWidth
+    let particleHeight = window.innerHeight
+    let particleDpr = Math.min(window.devicePixelRatio || 1, 2)
+    let particleFrameId = 0
+    let particleBurstStart = 0
+    let particleVibrancy = 1
+
+    const updateParticleCanvasSize = () => {
+      particleWidth = window.innerWidth
+      particleHeight = window.innerHeight
+      particleDpr = Math.min(window.devicePixelRatio || 1, 2)
+
+      particleCanvasEl.width = Math.floor(particleWidth * particleDpr)
+      particleCanvasEl.height = Math.floor(particleHeight * particleDpr)
+      particleCanvasEl.style.width = `${particleWidth}px`
+      particleCanvasEl.style.height = `${particleHeight}px`
+
+      particleCtx.setTransform(particleDpr, 0, 0, particleDpr, 0, 0)
+      particleCtx.textAlign = 'center'
+      particleCtx.textBaseline = 'middle'
+      particleCtx.shadowColor = '#00f2ff'
+      particleCtx.shadowBlur = 10
+    }
+
+    updateParticleCanvasSize()
+
+    const particleCount = Math.min(200, Math.max(90, Math.floor((particleWidth * particleHeight) / 13500)))
+    const hudParticles = Array.from({ length: particleCount }, () => new HudParticle(particleWidth, particleHeight))
+
+    const boostParticleVibrancy = () => {
+      particleVibrancy = 10
+      particleBurstStart = performance.now()
+    }
+
+    const animateParticles = (now) => {
+      if (particleVibrancy > 1) {
+        const elapsed = Math.min((now - particleBurstStart) / 1000, 1)
+        particleVibrancy = 1 + (1 - elapsed) * 9
+      }
+
+      particleCtx.clearRect(0, 0, particleWidth, particleHeight)
+
+      for (let i = 0; i < hudParticles.length; i += 1) {
+        hudParticles[i].update(particleWidth, particleHeight, particleVibrancy)
+        hudParticles[i].draw(particleCtx)
+      }
+
+      particleFrameId = window.requestAnimationFrame(animateParticles)
+    }
+
+    particleFrameId = window.requestAnimationFrame(animateParticles)
 
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
@@ -104,6 +207,17 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
       modelUrl,
       (gltf) => {
         modelRef.current = gltf.scene
+        modelRef.current.traverse((node) => {
+          if (!node.isMesh || !node.material) {
+            return
+          }
+          if (Array.isArray(node.material)) {
+            node.material.forEach((mat) => normalizeOpaqueMaterial(mat))
+            return
+          }
+          normalizeOpaqueMaterial(node.material)
+        })
+
         baseRotationRef.current.set(
           MODEL_BASE_ROTATION.x,
           MODEL_BASE_ROTATION.y,
@@ -138,6 +252,8 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
     }
 
     const onClick = () => {
+      boostParticleVibrancy()
+
       if (isTransitioning || !modelRef.current) {
         return
       }
@@ -210,6 +326,7 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
     }
 
     const onResize = () => {
+      updateParticleCanvasSize()
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix()
       renderer.setSize(window.innerWidth, window.innerHeight)
@@ -247,6 +364,7 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('click', onClick)
       window.removeEventListener('resize', onResize)
+      window.cancelAnimationFrame(particleFrameId)
       window.cancelAnimationFrame(frameId)
 
       scene.traverse((object) => {
@@ -267,6 +385,7 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
 
   return (
     <div ref={rootRef} className="gv-intro-root" role="dialog" aria-label="GameVerse intro">
+      <canvas ref={particleCanvasRef} className="gv-intro-particles" />
       <div ref={canvasRef} className="gv-intro-canvas" />
       <div className="gv-intro-title-wrap" aria-hidden="true">
         <h1 className="gv-intro-title">GAMEVERSE 2026</h1>

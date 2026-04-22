@@ -34,7 +34,11 @@ export default function MatrixRain() {
       canvas.height = window.innerHeight
     }
     window.addEventListener('resize', handleResize)
-    return () => { clearInterval(interval); window.removeEventListener('resize', handleResize) }
+
+    return () => {
+      clearInterval(interval)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   return <canvas ref={canvasRef} className="absolute inset-0 opacity-20 pointer-events-none" />
