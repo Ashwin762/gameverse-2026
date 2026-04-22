@@ -157,3 +157,82 @@ body {
   background: linear-gradient(90deg, transparent, rgba(0,245,255,0.3), transparent);
 }
 
+.gv-intro-root {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 20%, #061324 0%, #020408 58%, #000000 100%);
+  transition: filter 1s ease;
+}
+
+.gv-intro-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.gv-intro-title-wrap {
+  position: absolute;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  text-align: center;
+  pointer-events: none;
+  width: min(92vw, 980px);
+}
+
+.gv-intro-title {
+  margin: 0;
+  font-family: 'GodOfWar', sans-serif;
+  font-size: clamp(34px, 5.8vw, 86px);
+  letter-spacing: 0.08em;
+  color: #d8f8ff;
+  text-shadow: 0 0 24px rgba(0, 242, 255, 0.25);
+  line-height: 0.95;
+  white-space: nowrap;
+}
+
+.gv-intro-subtitle {
+  margin-top: 12px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: clamp(10px, 1vw, 14px);
+  letter-spacing: 0.38em;
+  color: rgba(183, 236, 255, 0.9);
+  text-transform: uppercase;
+}
+
+.gv-intro-overlay-ui {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10vh;
+  text-align: center;
+  pointer-events: none;
+  color: #00f2ff;
+  text-transform: uppercase;
+  letter-spacing: 0.35rem;
+  text-shadow: 0 0 10px rgba(0, 242, 255, 0.7);
+  font-family: 'Share Tech Mono', monospace;
+  padding: 0 16px;
+}
+
+.gv-intro-glitch {
+  display: inline-block;
+  font-size: clamp(0.72rem, 1.35vw, 1rem);
+  animation: gvIntroPulse 2s infinite;
+}
+
+@keyframes gvIntroPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
