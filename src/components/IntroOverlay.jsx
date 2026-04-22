@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { gsap } from 'gsap'
@@ -40,6 +40,8 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
   const baseRotationRef = useRef(new THREE.Vector3(0, 0, 0))
   const isTransitioningRef = useRef(false)
   const orientationBaselineRef = useRef({ beta: null, gamma: null })
+  const motionEnabledRef = useRef(false)
+  const [showMotionHint, setShowMotionHint] = useState(false)
 
   useEffect(() => {
     const rootEl = rootRef.current
@@ -276,6 +278,8 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
 
       targetRotationRef.current.x = THREE.MathUtils.clamp(normalizedX * 0.52, -0.6, 0.6)
       targetRotationRef.current.y = THREE.MathUtils.clamp(normalizedY * 0.52, -0.6, 0.6)
+      motionEnabledRef.current = true
+      setShowMotionHint(false)
     }
 
     let requestOrientationPermission = null
@@ -283,11 +287,25 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
     if (typeof window !== 'undefined' && 'DeviceOrientationEvent' in window) {
       const permissionApi = window.DeviceOrientationEvent
       if (typeof permissionApi.requestPermission === 'function') {
+        setShowMotionHint(true)
         requestOrientationPermission = () => {
-          permissionApi.requestPermission()
-            .then((state) => {
-              if (state === 'granted') {
+          const motionApi = window.DeviceMotionEvent
+
+          const permissionCalls = [permissionApi.requestPermission()]
+          if (motionApi && typeof motionApi.requestPermission === 'function') {
+            permissionCalls.push(motionApi.requestPermission())
+          }
+
+          Promise.allSettled(permissionCalls)
+            .then((results) => {
+              const granted = results.some(
+                (result) => result.status === 'fulfilled' && result.value === 'granted'
+              )
+
+              if (granted) {
                 window.addEventListener('deviceorientation', onDeviceOrientation, true)
+                window.addEventListener('deviceorientationabsolute', onDeviceOrientation, true)
+                setShowMotionHint(false)
               }
             })
             .catch(() => {
@@ -302,10 +320,15 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
         window.addEventListener('click', requestOrientationPermission, { once: true })
       } else {
         window.addEventListener('deviceorientation', onDeviceOrientation, true)
+        window.addEventListener('deviceorientationabsolute', onDeviceOrientation, true)
       }
     }
 
     const onClick = () => {
+      if (requestOrientationPermission && !motionEnabledRef.current) {
+        requestOrientationPermission()
+      }
+
       boostParticleVibrancy()
 
       if (isTransitioning || !modelRef.current) {
@@ -418,6 +441,7 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('click', onClick)
       window.removeEventListener('deviceorientation', onDeviceOrientation, true)
+      window.removeEventListener('deviceorientationabsolute', onDeviceOrientation, true)
       if (requestOrientationPermission) {
         window.removeEventListener('touchstart', requestOrientationPermission)
         window.removeEventListener('click', requestOrientationPermission)
@@ -450,6 +474,7 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
         <h1 className="gv-intro-title">GAMEVERSE 2026</h1>
         <p className="gv-intro-subtitle">DATE TO BE ANNOUNCED</p>
       </div>
+      {showMotionHint && <div className="gv-intro-motion-hint">Tap once to enable tilt control</div>}
       <div className="gv-intro-overlay-ui">
         <div className="gv-intro-glitch">Click to experience the game dev world</div>
       </div>

@@ -229,6 +229,21 @@ summary {
   text-transform: uppercase;
 }
 
+.gv-intro-motion-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 18vh;
+  transform: translateX(-50%);
+  z-index: 26;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(11px, 1.2vw, 14px);
+  letter-spacing: 0.2em;
+  color: #9deeff;
+  text-shadow: 0 0 14px rgba(0, 242, 255, 0.5);
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
 .gv-intro-overlay-ui {
   position: absolute;
   left: 0;
