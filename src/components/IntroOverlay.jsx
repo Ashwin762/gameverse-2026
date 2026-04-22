@@ -39,6 +39,7 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
   const targetRotationRef = useRef(new THREE.Vector2(0, 0))
   const baseRotationRef = useRef(new THREE.Vector3(0, 0, 0))
   const isTransitioningRef = useRef(false)
+  const orientationBaselineRef = useRef({ beta: null, gamma: null })
 
   useEffect(() => {
     const rootEl = rootRef.current
@@ -251,6 +252,59 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
       targetRotationRef.current.x = THREE.MathUtils.clamp(nextX, -0.6, 0.6)
     }
 
+    const onDeviceOrientation = (event) => {
+      if (isTransitioningRef.current) {
+        return
+      }
+
+      if (typeof event.beta !== 'number' || typeof event.gamma !== 'number') {
+        return
+      }
+
+      if (orientationBaselineRef.current.beta === null || orientationBaselineRef.current.gamma === null) {
+        orientationBaselineRef.current = {
+          beta: event.beta,
+          gamma: event.gamma
+        }
+      }
+
+      const betaDelta = event.beta - orientationBaselineRef.current.beta
+      const gammaDelta = event.gamma - orientationBaselineRef.current.gamma
+
+      const normalizedX = THREE.MathUtils.clamp(betaDelta / 35, -1, 1)
+      const normalizedY = THREE.MathUtils.clamp(gammaDelta / 30, -1, 1)
+
+      targetRotationRef.current.x = THREE.MathUtils.clamp(normalizedX * 0.52, -0.6, 0.6)
+      targetRotationRef.current.y = THREE.MathUtils.clamp(normalizedY * 0.52, -0.6, 0.6)
+    }
+
+    let requestOrientationPermission = null
+
+    if (typeof window !== 'undefined' && 'DeviceOrientationEvent' in window) {
+      const permissionApi = window.DeviceOrientationEvent
+      if (typeof permissionApi.requestPermission === 'function') {
+        requestOrientationPermission = () => {
+          permissionApi.requestPermission()
+            .then((state) => {
+              if (state === 'granted') {
+                window.addEventListener('deviceorientation', onDeviceOrientation, true)
+              }
+            })
+            .catch(() => {
+              // Keep mouse/touch fallback if permission is denied.
+            })
+
+          window.removeEventListener('touchstart', requestOrientationPermission)
+          window.removeEventListener('click', requestOrientationPermission)
+        }
+
+        window.addEventListener('touchstart', requestOrientationPermission, { once: true })
+        window.addEventListener('click', requestOrientationPermission, { once: true })
+      } else {
+        window.addEventListener('deviceorientation', onDeviceOrientation, true)
+      }
+    }
+
     const onClick = () => {
       boostParticleVibrancy()
 
@@ -363,6 +417,11 @@ export default function IntroOverlay({ onComplete, modelUrl = DEFAULT_MODEL_URL 
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('click', onClick)
+      window.removeEventListener('deviceorientation', onDeviceOrientation, true)
+      if (requestOrientationPermission) {
+        window.removeEventListener('touchstart', requestOrientationPermission)
+        window.removeEventListener('click', requestOrientationPermission)
+      }
       window.removeEventListener('resize', onResize)
       window.cancelAnimationFrame(particleFrameId)
       window.cancelAnimationFrame(frameId)
